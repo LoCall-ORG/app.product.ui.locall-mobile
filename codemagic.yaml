@@ -1,13 +1,45 @@
+# workflows:
+#   staging-workflow:
+#     environment:
+#       flutter:
+#         version: fvm
+#     scripts:
+#       - name: Discord notification
+#         script: |
+#           set -ex
+#           APP_LINK=$(echo $CM_ARTIFACT_LINKS | jq -r '.[] | select(.name=="app-debug.apk") | .url')
+
+#           # Get first 7 digits of commit number
+#           COMMIT=$(echo "${CM_COMMIT}" | sed 's/^\(........\).*/\1/;q')
+
+#           # Get commit message
+#           COMMIT_MESSAGE=$(git log --format=%B -n 1 $CM_COMMIT)
+
+#           # Get commit author
+#           AUTHOR=$(git show -s --format='%ae' $CM_COMMIT)
+
+#           # Publish the notification
+#           curl -H "Content-Type: multipart/form-data" \
+#           -F 'payload_json={"username" : "codemagic-staging-bot", "content": "**Commit:** `'"$COMMIT"'`\n\n**Commit message:** '"$COMMIT_MESSAGE"'\n\n**Branch:** '"$CM_BRANCH"'\n\n**Author:** '"$AUTHOR"'\n\n**Artifacts: **\n\n'"$APP_LINK"'\n\n"}' \
+#           https://discord.com/api/webhooks/1290879913955561566/ORcwglRkwsQ9N_UfFzQ_21aGUdKTVkFBtEQZxCOj6hbciySZtPHEkwhit5PKBGViFku9
+
 workflows:
-  staging-workflow:
+  android-workflow:
+    name: Android Workflow
+    max_build_duration: 120
     environment:
-      flutter:
-        version: fvm
+      flutter: fvm
     scripts:
+      - name: Get Flutter packages
+        script: |
+          flutter packages pub get
+      - name: Build Debug APK with Flutter
+        script: |
+          flutter build apk --debug
       - name: Discord notification
         script: |
           set -ex
-          APP_LINK=$(echo $CM_ARTIFACT_LINKS | jq -r '.[] | select(.name=="app.apk") | .url')
+          APP_LINK=$(echo $CM_ARTIFACT_LINKS | jq -r '.[] | select(.name=="app-debug.apk") | .url')
 
           # Get first 7 digits of commit number
           COMMIT=$(echo "${CM_COMMIT}" | sed 's/^\(........\).*/\1/;q')
@@ -22,3 +54,5 @@ workflows:
           curl -H "Content-Type: multipart/form-data" \
           -F 'payload_json={"username" : "codemagic-staging-bot", "content": "**Commit:** `'"$COMMIT"'`\n\n**Commit message:** '"$COMMIT_MESSAGE"'\n\n**Branch:** '"$CM_BRANCH"'\n\n**Author:** '"$AUTHOR"'\n\n**Artifacts: **\n\n'"$APP_LINK"'\n\n"}' \
           https://discord.com/api/webhooks/1290879913955561566/ORcwglRkwsQ9N_UfFzQ_21aGUdKTVkFBtEQZxCOj6hbciySZtPHEkwhit5PKBGViFku9
+    # artifacts:
+    #   - build/**/outputs/**/app-debug.apk

@@ -4,7 +4,6 @@ workflows:
       flutter:
         version: fvm
         flavor: dev
-    publishing:
     scripts:
       - name: Discord notification
         script: |

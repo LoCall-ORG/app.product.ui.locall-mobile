@@ -3,7 +3,6 @@ workflows:
     environment:
       flutter:
         version: fvm
-        flavor: dev
     scripts:
       - name: Discord notification
         script: |

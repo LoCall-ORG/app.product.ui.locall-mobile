@@ -1,0 +1,6 @@
+workflows:
+  staging-workflow:
+    environment:
+      flutter:
+        version: fvm
+        flavor: dev

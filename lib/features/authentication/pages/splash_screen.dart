@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locall/features/authentication/pages/login_screen.dart';
+import 'package:locall/features/authentication/pages/select_language.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -39,12 +40,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 300,
-              ),
               AnimatedTextKit(
                 onFinished: () {
-                  Get.to(LoginScreen());
+                  Get.to(LanguageSelectionScreen());
                 },
                 animatedTexts: [
                   TyperAnimatedText(

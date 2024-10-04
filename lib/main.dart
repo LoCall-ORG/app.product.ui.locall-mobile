@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
+import 'package:locall/api/api_service.dart';
 import 'package:locall/features/authentication/pages/splash_screen.dart';
 import 'package:locall/utils/localisation/app_locale.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  Get.put(ApiService());
   runApp(
     const MyApp(),
   );

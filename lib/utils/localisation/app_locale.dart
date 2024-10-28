@@ -71,5 +71,10 @@ mixin AppLocale {
 
 final FlutterLocalization localization = FlutterLocalization.instance;
 
+List<MapLocale> localeList = [
+  MapLocale('en', AppLocale.EN),
+  MapLocale('hi', AppLocale.HI),
+];
+
 void setLanguageToEnglish() => localization.translate('en');
 void setLanguageToHindi() => localization.translate('hi');

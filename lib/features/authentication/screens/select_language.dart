@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localization/flutter_localization.dart';
-import 'package:locall/features/authentication/pages/login_screen.dart';
+import 'package:locall/routes/app_routes.dart';
 import 'package:locall/utils/localisation/app_locale.dart';
 import 'package:get/get.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
-  const LanguageSelectionScreen({Key? key}) : super(key: key);
+  const LanguageSelectionScreen({super.key});
 
   @override
-  _LanguageSelectionScreenState createState() =>
+  State<LanguageSelectionScreen> createState() =>
       _LanguageSelectionScreenState();
 }
 
@@ -26,7 +25,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
       } else {
         setLanguageToHindi();
       }
-      Get.to(() => LoginScreen());
+      Get.toNamed(AppRoutes.loginScreen);
     });
   }
 
